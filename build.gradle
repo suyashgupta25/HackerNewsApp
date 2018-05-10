@@ -1,0 +1,46 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+// This block encapsulates custom properties and makes them available to all
+// modules in the project.
+ext {
+    // You can also use this to specify versions for dependencies. Having consistent
+    // versions between modules can avoid behavior conflicts.
+    supportLibVersion = "25.1.0"
+    jacocoVersion = "0.8.1"
+    okhttpVersion = "3.9.0"
+    rxjava = "2.1.2"
+    rxandroid = "2.0.1"
+    daggerVersion = "2.5"
+}
+
+buildscript {
+    
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath "org.jacoco:org.jacoco.core:0.8.1"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

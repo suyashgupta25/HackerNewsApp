@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">HackerNewsApp</string>
+    <string name="news_list">Top News</string>
+    <string name="loading_news">Loading News</string>
+    <string name="loading_comments">Loading Comments</string>
+
+    <string name="title_comments"><u>Comments:</u></string>
+    <string name="label_points">points</string>
+    <string name="label_comments">comments</string>
+    <string name="label_by">by</string>
+</resources>
