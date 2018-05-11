@@ -26,64 +26,20 @@ public class News implements Parcelable {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public long getScore() {
         return score;
     }
 
-    public void setScore(long score) {
-        this.score = score;
-    }
-
     public String getBy() {
         return by;
     }
 
-    public void setBy(String by) {
-        this.by = by;
-    }
-
     public long getTime() {
         return time;
-    }
-
-    public void setTime(long time) {
-        this.time = time;
-    }
-
-    public long getDescendants() {
-        return descendants;
-    }
-
-    public void setDescendants(long descendants) {
-        this.descendants = descendants;
     }
 
     public List<Long> getKids() {

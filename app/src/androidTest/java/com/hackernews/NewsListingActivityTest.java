@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -29,6 +30,18 @@ public class NewsListingActivityTest {
     {
         Thread.sleep(5000);
         onView(withId(R.id.news_listing)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void shouldBeAbleToPullToRefresh() throws InterruptedException
+    {
+        Thread.sleep(5000);
+        onView(withId(R.id.news_listing)).check(matches(isDisplayed()));
+        onView(withId(R.id.news_listing)).perform(swipeDown());
+        Thread.sleep(5000);
+        onView(withId(R.id.news_listing)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+        Thread.sleep(5000);
+        onView(withId(R.id.news_details_listing)).check(matches(isDisplayed()));
     }
 
     @Test
