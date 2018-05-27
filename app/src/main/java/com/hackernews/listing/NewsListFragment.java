@@ -2,10 +2,10 @@ package com.hackernews.listing;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import com.hackernews.BaseApplication;
 import com.hackernews.R;
 import com.hackernews.pojo.News;
+import com.hackernews.ui.customviews.PaginationScrollListener;
 import com.hackernews.utils.AppConstants;
 
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public class NewsListFragment extends Fragment implements NewsListingView, Swipe
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initLayoutReferences();
         srlNewsListing.setOnRefreshListener(this);
     }
 
@@ -75,7 +77,6 @@ public class NewsListFragment extends Fragment implements NewsListingView, Swipe
         super.onViewCreated(view, savedInstanceState);
         srlNewsListing = (SwipeRefreshLayout) view.findViewById(R.id.srl_news_listing);
         newsListing = (RecyclerView) view.findViewById(R.id.news_listing);
-        initLayoutReferences();
         if (savedInstanceState != null) {
             ArrayList<News> newsList = savedInstanceState.getParcelableArrayList(AppConstants.PARAM_NEWS_ARRAYLIST);
             newsListingPresenter.setNewsList(newsList);
@@ -93,7 +94,8 @@ public class NewsListFragment extends Fragment implements NewsListingView, Swipe
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(newsListing.getContext(),
                 mLayoutManager.getOrientation());
         newsListing.addItemDecoration(dividerItemDecoration);
-        adapter = new NewsListingAdapter(this, newsListingPresenter.getNewsList());
+        newsListing.addOnScrollListener(new PaginationScrollListener(mLayoutManager, newsListingPresenter.getPaginationListener()));
+        adapter = new NewsListingAdapter(this);
         newsListing.setAdapter(adapter);
     }
 
@@ -106,8 +108,9 @@ public class NewsListFragment extends Fragment implements NewsListingView, Swipe
     @Override
     public void loadingStarted() {
         Log.d(TAG, "loadingStarted");
-        if (newsListingPresenter.getNewsList().isEmpty())
+        if (newsListingPresenter.getNewsList().isEmpty()) {
             Snackbar.make(newsListing, R.string.loading_news, Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -118,10 +121,13 @@ public class NewsListFragment extends Fragment implements NewsListingView, Swipe
 
     @Override
     public void updateNewsList(News news) {
-        Log.d(TAG, "showNews");
+        Log.d(TAG, "updateNewsList newsId="+news.getId());
         newsListing.setVisibility(View.VISIBLE);
         adapter.addItemAndRefresh(news);
         callback.onNewsLoaded(news);
+        if(adapter.getItemCount() > AppConstants.PAGE_SIZE_TO_HIDE_REFRESH) {
+            srlNewsListing.setRefreshing(false);
+        }
     }
 
     @Override
@@ -157,14 +163,11 @@ public class NewsListFragment extends Fragment implements NewsListingView, Swipe
     public void onRefresh() {
         Log.d(TAG, "onPulledToRefresh");
         newsListingPresenter.onPulledToRefresh();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                srlNewsListing.setRefreshing(false);
-            }
-        },2000);
     }
 
+    public IdlingResource getNewsListIdlingResource() {
+        return newsListingPresenter.getNewsListIdlingResource();
+    }
 
     public interface Callback {
         void onNewsLoaded(News news);

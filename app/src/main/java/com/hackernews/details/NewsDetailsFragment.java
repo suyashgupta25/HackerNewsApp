@@ -71,7 +71,7 @@ public class NewsDetailsFragment extends Fragment implements NewsDetailsView {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(newsCommentsListing.getContext(),
                 mLayoutManager.getOrientation());
         newsCommentsListing.addItemDecoration(dividerItemDecoration);
-        adapter = new NewsDetailsAdapter(this, newsDetailsPresenter.getNewsCommentsList());
+        adapter = new NewsDetailsAdapter(this);
         newsCommentsListing.setAdapter(adapter);
     }
 

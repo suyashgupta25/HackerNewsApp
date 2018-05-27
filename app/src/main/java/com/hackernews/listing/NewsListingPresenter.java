@@ -1,6 +1,9 @@
 package com.hackernews.listing;
 
+import android.support.test.espresso.IdlingResource;
+
 import com.hackernews.pojo.News;
+import com.hackernews.ui.customviews.PaginationScrollCallbacks;
 
 import java.util.List;
 
@@ -19,5 +22,11 @@ public interface NewsListingPresenter {
     void setNewsList(List<News> newsList);
 
     void onPulledToRefresh();
+
+    PaginationScrollCallbacks getPaginationListener();
+
+    boolean isViewAttached();
+
+    IdlingResource getNewsListIdlingResource();
 
 }

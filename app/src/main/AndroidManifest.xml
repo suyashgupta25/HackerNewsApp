@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.NewsListActivity"
+            android:name=".ui.activities.NewsListActivity"
             android:launchMode="singleTask"
             android:configChanges="screenSize|screenLayout|orientation">
             <intent-filter>

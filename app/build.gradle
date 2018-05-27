@@ -26,6 +26,8 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
                       '**/*$InjectAdapter.class',
                       '**/*$ModuleAdapter.class',
                       '**/*$ViewInjector*.class',
+                      '**/*Fragment*.*',//excluding UI elements since Jacoco is not picking up its coverage
+                      '**/*Adapter*.*',//excluding UI elements since Jacoco is not picking up its coverage
                       '**/*_MembersInjector.class', //Dagger2 generated code
                       '*/*_MembersInjector*.*', //Dagger2 generated code
                       '**/*_*Factory*.*', //Dagger2 generated code
@@ -114,6 +116,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.3.0'
+    compile 'com.android.support.test.espresso:espresso-idling-resource:3.0.2-alpha1'
 
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2-alpha1'
     androidTestImplementation('com.android.support.test.espresso:espresso-contrib:2.0') {

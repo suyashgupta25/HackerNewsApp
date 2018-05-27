@@ -18,4 +18,8 @@ public class AppConstants {
     public static final String TEXT_BAR = "|";
 
     public static final String ERR_EMPTY_LIST =  "No news items found";
+
+    public static final boolean IS_PAGINATION_SUPPORTED = true;
+    public static final int PAGE_SIZE_TO_HIDE_REFRESH = 5;
+    public static final int PAGE_SIZE_NEWS_LIST = 10;
 }

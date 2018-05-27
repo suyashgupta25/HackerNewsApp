@@ -18,4 +18,8 @@ public interface NewsListingInteractor {
 
     Observable<News> fetchNewsSequentially(List<Long> newsIds);
 
+    void setAllNewsList(List<Long> allNewsList);
+
+    List<Long> getAllNewsList();
+
 }

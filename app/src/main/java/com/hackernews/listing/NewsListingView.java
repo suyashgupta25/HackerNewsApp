@@ -17,4 +17,5 @@ public interface NewsListingView {
     void onNewsClicked(News news);
 
     void clearNewsList();
+
 }

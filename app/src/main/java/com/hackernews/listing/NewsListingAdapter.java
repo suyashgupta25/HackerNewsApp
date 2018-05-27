@@ -22,13 +22,13 @@ import java.util.List;
 
 public class NewsListingAdapter extends RecyclerView.Adapter<NewsListingAdapter.ViewHolder> {
 
+    private static final String TAG = NewsListingAdapter.class.getSimpleName();
     private NewsListingView view;
     private List<News> newsList = new ArrayList<>();
     private Context context;
 
-    public NewsListingAdapter(NewsListingView view, List<News> newsList) {
+    public NewsListingAdapter(NewsListingView view) {
         this.view = view;
-        this.newsList = newsList;
     }
 
     @Override
@@ -60,6 +60,11 @@ public class NewsListingAdapter extends RecyclerView.Adapter<NewsListingAdapter.
                     + holder.news.getKids().size() + AppConstants.TEXT_SPACE + context.getString(R.string.label_comments);
         }
         holder.tvNewsDetails.setText(description);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return newsList.get(position).getId();
     }
 
     @Override

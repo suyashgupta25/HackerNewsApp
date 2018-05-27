@@ -55,6 +55,10 @@ public class News implements Parcelable {
         return 0;
     }
 
+    public News(long id) {
+        this.id = id;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(this.id);

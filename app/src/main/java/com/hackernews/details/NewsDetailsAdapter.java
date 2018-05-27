@@ -24,9 +24,8 @@ public class NewsDetailsAdapter extends RecyclerView.Adapter<NewsDetailsAdapter.
     private List<NewsComment> newsCommentList = new ArrayList<>();
     private Context context;
 
-    public NewsDetailsAdapter(NewsDetailsView view, List<NewsComment> newsCommentList) {
+    public NewsDetailsAdapter(NewsDetailsView view) {
         this.view = view;
-        this.newsCommentList = newsCommentList;
     }
 
     @Override
